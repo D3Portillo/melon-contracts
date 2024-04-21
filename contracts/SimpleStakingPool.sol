@@ -48,6 +48,9 @@ contract SimpleStakingPool is Ownable, Pausable {
     }
 
     function withdraw(uint256 _amount) external {
+        require(_amount > 0, "Amount must be greater than 0");
+
+        ILendingPool(lendingPool).withdraw(token, _amount, address(this));
         emit Withdraw(msg.sender, _amount);
     }
 
